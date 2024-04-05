@@ -1,6 +1,5 @@
 import styled from "@emotion/styled";
 import { styleVars } from "globalStyles";
-import useTodoList from "hooks/useTodoList";
 import { Task } from "types";
 
 const TodoListItemDoneBtnStyle = styled.button<{ disabledStyle: boolean }>(
@@ -22,12 +21,14 @@ const TodoListItemDoneBtnStyle = styled.button<{ disabledStyle: boolean }>(
   })
 );
 
-export default function TodoListItemDoneBtn({ task }: { task: Task }) {
-  const { toggleStatus } = useTodoList();
-  const onClick = () => toggleStatus(task);
-  return (
-    <TodoListItemDoneBtnStyle onClick={onClick} disabledStyle={task.done}>
-      ✔
-    </TodoListItemDoneBtnStyle>
-  );
-}
+const TodoListItemDoneBtn = ({
+  completed,
+}: {
+  completed: Task["completed"];
+}) => (
+  <TodoListItemDoneBtnStyle disabledStyle={completed}>
+    ✔
+  </TodoListItemDoneBtnStyle>
+);
+
+export default TodoListItemDoneBtn;

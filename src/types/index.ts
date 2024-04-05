@@ -1,10 +1,10 @@
 export type Task = {
   id: number;
-  title: string;
+  text: string;
   description: string;
-  done: boolean;
+  completed: boolean;
 };
 
-export type PartialTask = Omit<Task, "id" | "createdAt" | "done">;
+export type PartialTask = Omit<Task, "id" | "createdAt" | "completed">;
 
 export type TaskList = Task[];

@@ -21,10 +21,10 @@ export default function TodoFilter({
 
       switch (key) {
         case COMPLETED_KEY:
-          tasks = todoList.filter((t) => t.done);
+          tasks = todoList.filter((t) => t.completed);
           break;
         case UNCOMPLETED_KEY:
-          tasks = todoList.filter((t) => !t.done);
+          tasks = todoList.filter((t) => !t.completed);
           break;
       }
 
@@ -66,6 +66,7 @@ export default function TodoFilter({
           selected={selectedKey === value}
           onClick={() => handleSelectorChange(value)}
           data-cy={testDataAttr}
+          key={testDataAttr}
         >
           {text}
         </TodoFilterButton>

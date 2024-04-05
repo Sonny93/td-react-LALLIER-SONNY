@@ -5,7 +5,7 @@ import { ReactNode } from "react";
 import { cssReset, htmlBodyStyle } from "../globalStyles";
 
 const Container = styled.div({
-  width: "450px",
+  width: "475px",
   display: "flex",
   gap: "3em",
   alignItems: "center",

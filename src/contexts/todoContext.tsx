@@ -16,22 +16,25 @@ const iTodoContextState: TodoContextType = {
 
 export const TodoContext = createContext<TodoContextType>(iTodoContextState);
 
-const LS_TODO_LIST_KEY = "todos";
-const TODO_LIST_LS = localStorage.getItem(LS_TODO_LIST_KEY);
-
-if (!isJsonString(TODO_LIST_LS)) {
-  console.warn("Invalid json detected, clean it up");
-  localStorage.removeItem(LS_TODO_LIST_KEY);
-}
-
-const TODO_LIST = isJsonString(TODO_LIST_LS) ? JSON.parse(TODO_LIST_LS!) : [];
+const LS_TODO_LIST_KEY = "tasks";
 
 export function TodoContextProvider({ children }: { children: ReactNode }) {
-  const [todoList, setTodoList] = useState<TaskList>(TODO_LIST);
+  const [todoList, setTodoList] = useState<TaskList>(() => {
+    const todoListLS = localStorage.getItem(LS_TODO_LIST_KEY);
+
+    if (!isJsonString(todoListLS)) {
+      console.warn("Invalid json detected, clean it up", todoListLS);
+      localStorage.removeItem(LS_TODO_LIST_KEY);
+      return [];
+    }
+
+    return JSON.parse(todoListLS!) ?? [];
+  });
+  console.log(todoList);
 
   const createTaskHelper = (partialTask: PartialTask) => ({
     id: Date.now(),
-    done: false,
+    completed: false,
     ...partialTask,
   });
 
@@ -48,7 +51,7 @@ export function TodoContextProvider({ children }: { children: ReactNode }) {
       if (todoItemIndex !== -1) {
         todoListCopy[todoItemIndex] = {
           ...todoItem,
-          done: !todoItem.done,
+          completed: !todoItem.completed,
         };
       }
 

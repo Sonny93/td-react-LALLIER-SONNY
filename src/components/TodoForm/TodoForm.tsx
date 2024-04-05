@@ -14,19 +14,19 @@ const FormField = styled.div({
 });
 
 type FormState = {
-  title: string;
+  text: string;
   description: string;
 };
 
 const EMPTY_FORM_STATE: FormState = {
-  title: "",
+  text: "",
   description: "",
 };
 
 export default function TodoForm() {
   const { addTask } = useTodoList();
   const [formState, setFormState] = useState<FormState>(EMPTY_FORM_STATE);
-  const canSubmit = !!formState.title;
+  const canSubmit = !!formState.text;
 
   const resetFormState = () => setFormState(EMPTY_FORM_STATE);
 
@@ -39,7 +39,7 @@ export default function TodoForm() {
 
   const handleFormSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    addTask({ title: formState.title, description: formState.description });
+    addTask({ text: formState.text, description: formState.description });
     resetFormState();
   };
 
@@ -49,10 +49,10 @@ export default function TodoForm() {
       <FormField>
         <FormLabel required>Tâche</FormLabel>
         <FormInput
-          name="title"
+          name="text"
           placeholder="Votre tâche à effectuer"
           onChange={handleInputChange}
-          value={formState.title}
+          value={formState.text}
           data-cy="task-input"
         />
       </FormField>
